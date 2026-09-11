@@ -3,7 +3,7 @@ const $ = (id) => document.getElementById(id);
 const arena = $('arena'), ctx = arena.getContext('2d');
 const brainCanvas = $('brain-map'), brainCtx = brainCanvas.getContext('2d');
 const visionCanvas = $('vision'), visionCtx = visionCanvas.getContext('2d');
-const mascot = new Image(); mascot.src = '/assets/frankenfly.png';
+const mascot = new Image(); mascot.src = 'assets/frankenfly.png';
 let state = null, geometry = null, selected = 'light', key = '', fetching = null;
 let lastReceived = 0, toastTimer, pointer = {x: 480, y: 300}, drawing = true;
 let position = {x: 480, y: 340, heading: -.2}, lastFrame = performance.now();
@@ -27,14 +27,14 @@ $('access-form').addEventListener('submit', async(e)=>{
   try {
     // A dedicated authorization check avoids changing the live experiment just
     // to verify a key. The key is held in memory, never URL/localStorage.
-    const response=await fetch('/api/operator',{headers:{Authorization:`Bearer ${candidate}`}});
+    const response=await fetch('api/operator',{headers:{Authorization:`Bearer ${candidate}`}});
     if (!response.ok) throw new Error('The operator key was not accepted.');
     key=candidate; $('operator-key').value=''; $('access-dialog').close(); $('access-button').textContent='Release controls'; toast('You have the controls. Choose a stimulus and tap the chamber.'); updateUI();
   } catch(error) { $('access-error').textContent=error.message; }
 });
 async function command(payload) {
   if (!key) { $('access-dialog').showModal(); throw new Error('Operator access required.'); }
-  const response=await fetch('/api/control',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${key}`},body:JSON.stringify(payload)});
+  const response=await fetch('api/control',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${key}`},body:JSON.stringify(payload)});
   if (!response.ok) {
     const message=response.status===429?'One moment — try again.':response.status===401?'Operator access required.':'The brain is not ready. Try again shortly.';
     if(response.status===401){key='';$('access-button').textContent='Take controls';}
@@ -77,9 +77,9 @@ async function poll(fresh=false){
   if(fetching){await fetching;if(!fresh)return;}
   const task=(async()=>{
   try{
-    const response=await fetch('/api/state',{cache:'no-store',signal:AbortSignal.timeout(5000)});if(!response.ok)throw new Error('offline');
+    const response=await fetch('api/state',{cache:'no-store',signal:AbortSignal.timeout(5000)});if(!response.ok)throw new Error('offline');
     state=await response.json();lastReceived=Date.now();
-    if(state.status==='live'&&!geometry){const g=await fetch('/api/geometry');if(g.ok)geometry=await g.json();}
+    if(state.status==='live'&&!geometry){const g=await fetch('api/geometry');if(g.ok)geometry=await g.json();}
   }catch(error){if(Date.now()-lastReceived>5000)state={status:'unavailable',message:'Connection lost. Waiting for the live brain feed.'};}
   finally{updateUI();}
   })();

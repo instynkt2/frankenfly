@@ -82,6 +82,18 @@ operator's console screenshots. The app is still bound to localhost. A public
 URL, HTTPS, browser interaction and the impact on other workloads are not yet
 verified. No token or wallet has been launched.
 
+## Prepared subpath support
+
+- Updated HTML and JavaScript URLs to stay within the page's mounted path.
+- Two URL-resolution checks passed for `/` and `/frankenfly/`, using the real
+  page references, static files and API routes. JavaScript syntax also passed.
+- Three frontend-updater checks passed: backup and preservation of unrelated
+  files, refusal to overwrite custom changes, and rollback after an I/O error.
+- The updater's old/new SHA-256 values match the deployed baseline and the
+  prepared frontend. It replaces only HTML/JavaScript and needs no app restart.
+- Prepared a scoped Nginx location include. The target Nginx configuration has
+  not yet been edited or reloaded; public path checks remain pending.
+
 ## Source repository
 
 [instynkt2/frankenfly](https://github.com/instynkt2/frankenfly) contains the

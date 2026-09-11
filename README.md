@@ -69,6 +69,10 @@ the browser holds it in memory for that tab only. Without it, viewers can
 watch but cannot alter the shared session. Never paste this key into an issue
 or commit `.env`.
 
+To host the app below an existing site's path such as `/frankenfly/`, see
+the [subpath deployment guide](docs/SUBPATH_PL.md). Frontend URLs are relative;
+the proxy must preserve the trailing slash and strip the prefix upstream.
+
 ### Public HTTPS
 
 Point a domain's DNS A record at the server (and its AAAA record only if IPv6
