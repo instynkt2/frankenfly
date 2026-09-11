@@ -28,6 +28,12 @@ See [the model description](docs/MODEL.md) for the exact engineering choices.
 
 ## Quick start with Docker
 
+**Existing shared server without Docker:** use the
+[isolated native installer (Polish)](docs/NATIVE_PL.md). It adds only
+Frankenfly, uses a private Python environment, limits CPU/RAM, and initially
+listens on localhost:18080. It does not install Docker or change the host's
+existing reverse proxy, firewall or other applications.
+
 Prerequisites: a Linux server with Docker Engine and the Docker Compose plugin.
 Use **2–4 vCPU, 4–8 GB RAM and at least 10 GB free disk** as a starting budget.
 CPU speed matters more than adding cores to this single-model implementation.

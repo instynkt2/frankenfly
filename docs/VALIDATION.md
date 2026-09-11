@@ -48,6 +48,22 @@ capacity for a large public audience.
 - Interactive browser/visual and WebMCP testing were not performed. The
   interface's HTML, local assets and JavaScript syntax were checked.
 
+## Native shared-server installer
+
+- Four additional focused checks passed: existing installation preservation,
+  exclusive unit-file writes, archive traversal rejection and symlink rejection.
+- Both generated service files passed systemd 255 syntax verification (the
+  runtime interpreter path was substituted for the locally present Python).
+  The exact setup service also passed verification without substitution.
+- Downloaded and safely extracted the real pinned GitHub source archive.
+- Created a fresh venv without ensurepip and successfully bootstrapped the
+  SHA-256-verified pip 25.0.1 wheel inside it, without changing system Python.
+- Rebuilt the full graph from the verified source data: **1301.8 MiB peak RSS**,
+  with the identical graph SHA-256 recorded above. Peak RSS is not a measured
+  cgroup memory limit.
+- The environment has no running systemd manager, so actual DynamicUser,
+  cgroup enforcement and native service startup remain target-host checks.
+
 ## Source repository
 
 [instynkt2/frankenfly](https://github.com/instynkt2/frankenfly) contains the

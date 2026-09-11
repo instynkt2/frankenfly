@@ -4,6 +4,10 @@ Potrzebny jest serwer, na którym można uruchamiać programy: Hetzner Cloud VPS
 albo serwer dedykowany. Sam Storage Box jest magazynem plików i nie zastąpi VPS.
 Nie potrzeba osobnego dysku ani GPU, jeśli serwer ma odpowiedni zapas zasobów.
 
+**Jeśli działają tam już inne projekty i nie ma Dockera**, skorzystaj z
+[wariantu bez Dockera](NATIVE_PL.md). Dodaje osobny venv i usługi Frankenfly
+z limitami zasobów oraz sprawdza konflikty przed instalacją.
+
 ## Konfiguracja na początek
 
 | Element | Propozycja |
