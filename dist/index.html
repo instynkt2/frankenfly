@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111511">
+  <meta name="description" content="A fruit-fly connectome. A very questionable cat. Watch Frankenfly respond to light, shadow and scent.">
+  <title>Frankenfly — The connectome experiment</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/style.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="wordmark" href="/" aria-label="Frankenfly home"><span class="brand-bolt" aria-hidden="true">ϟ</span> FRANKENFLY<span class="version">LAB / 001</span></a>
+    <div class="header-actions"><span class="status" id="status">CONNECTING</span><button class="button small" id="access-button">Take controls</button></div>
+  </header>
+  <main>
+    <div class="intro"><div><p class="eyebrow">FRUIT-FLY CONNECTOME · VIRTUAL CAT</p><h1>New body.<br><em>Same tiny brain.</em></h1></div><p class="intro-note">Put something in its world.<br>See what the neurons do.</p></div>
+    <div class="lab-layout">
+      <section class="chamber" aria-labelledby="chamber-heading">
+        <div class="panel-heading"><h2 id="chamber-heading">THE CHAMBER</h2><span id="session-clock">SESSION 00:00</span></div>
+        <div class="arena-wrap">
+          <canvas id="arena" width="960" height="600" tabindex="0" role="img" aria-label="Frankenfly's arena. Select a stimulus, then click or tap to place it. Arrow keys move the placement cursor; Enter places it."></canvas>
+          <div class="arena-label"><span>SPECIMEN 001</span><strong>FRANKENFLY</strong></div>
+          <div class="offline" id="offline" role="status"><img src="/assets/frankenfly.png" alt="Frankenfly, a stitched charcoal cat with lime eyes and fly wings"><strong id="offline-title">Connecting the brain…</strong><p id="offline-message">The chamber will open when the connectome is ready.</p></div>
+          <div class="arena-foot"><span id="arena-hint">Observe the experiment, or take controls.</span><span id="coordinates">X 480 · Y 340</span></div>
+        </div>
+        <div class="controls">
+          <div class="stimulus-tools" role="group" aria-label="Choose a stimulus">
+            <button class="tool active" data-kind="light" aria-pressed="true"><span class="tool-symbol">☀</span><span>Light<small>Visual stimulus</small></span></button>
+            <button class="tool" data-kind="shadow" aria-pressed="false"><span class="tool-symbol">◐</span><span>Shadow<small>Dark pulse</small></span></button>
+            <button class="tool" data-kind="odor" aria-pressed="false"><span class="tool-symbol">≋</span><span>Scent<small>Olfactory pulse</small></span></button>
+          </div>
+          <div class="play-controls"><button class="icon-button" id="clear-button" title="Clear stimuli" aria-label="Clear all stimuli">Clear</button><button class="button" id="pause-button" aria-pressed="false">Pause</button></div>
+        </div>
+        <div class="chamber-stats"><div><span>Distance</span><strong id="distance">—</strong><small>world units</small></div><div><span>Wall contacts</span><strong id="contacts">—</strong><small>this session</small></div><div><span>Neural time</span><strong id="neural-time">—</strong><small>seconds simulated</small></div><div><span>Step time</span><strong id="compute-time">—</strong><small>milliseconds</small></div></div>
+      </section>
+      <aside class="readouts" aria-label="Neural telemetry">
+        <section class="brain-panel"><div class="panel-heading"><h2>INSIDE THE BRAIN</h2><span class="pill">MEASURED WIRING</span></div><canvas id="brain-map" width="420" height="230" role="img" aria-label="A sample of neurons at their measured soma positions. Lime dots fired during the latest step."></canvas><div class="brain-count"><strong id="firing">—</strong><span>neurons firing now</span></div><div class="brain-details"><span><b id="neuron-count">—</b> neurons</span><span><b id="edge-count">—</b> connections</span></div></section>
+        <section class="vision-panel"><div class="panel-heading"><h2>THROUGH ITS EYES</h2><span id="retina-count">RETINA</span></div><canvas id="vision" width="420" height="150" role="img" aria-label="The luminance sampled at the connectome's visual columns"></canvas><p>Light entering the model. The cat artwork and interface stay outside its view.</p></section>
+        <section class="motor-panel"><div class="panel-heading"><h2>WHAT MOVES THE CAT</h2><span>NEURAL OUTPUT</span></div><div id="motor-bars"></div><p class="motor-note">Neuron activity becomes turning, forward motion, reverse and stopping.</p></section>
+      </aside>
+    </div>
+    <section class="bottom-row">
+      <div class="event-panel"><div class="panel-heading"><h2>LAB NOTES</h2><span>SESSION EVENTS</span></div><ol id="events"><li>Waiting for the first observation.</li></ol></div>
+      <details class="model-note"><summary>What is real in this experiment?</summary><p>The wiring comes from the FlyEM male fruit-fly CNS dataset. Neuron dynamics, the ground-plane view and the transformation into cat motion are simplified models. The body is a virtual avatar.</p><p>Like the upstream implementation, each short neural observation window starts from rest. World and random-generator state persist; this is not continuous neural memory. Scent is a synthetic input to olfactory neurons, not a validated chemical odor. This version does not train, understand language or reproduce a living cat.</p><p>The display samples measured neuron positions; firing counts cover the full model. Brain time and world time run at different scales. Motor readouts are in Hz of simulated time.</p><p><a href="https://github.com/fruitflydev/flycoinrh" target="_blank" rel="noopener noreferrer">Based on flycoinrh</a> · Data: HHMI Janelia FlyEM, Cambridge Connectomics Group and Google Research, CC BY 4.0.</p></details>
+    </section>
+  </main>
+  <footer><span>FRANKENFLY / OPEN EXPERIMENT</span><span>A cat-shaped question mark.</span></footer>
+  <dialog id="access-dialog"><form id="access-form"><button type="button" class="dialog-close" id="close-dialog" aria-label="Close">×</button><p class="eyebrow">OPERATOR ACCESS</p><h2>Enter the control room.</h2><p>Everyone can watch. The operator can place stimuli and pause this shared experiment.</p><label for="operator-key">Operator key</label><input id="operator-key" name="key" type="password" autocomplete="off" required><p id="access-error" class="error" role="alert"></p><button class="button primary" type="submit">Take controls</button><p class="fine-print">Your key stays in this tab and is sent only to this server.</p></form></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

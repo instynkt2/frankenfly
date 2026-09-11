@@ -1,0 +1,26 @@
+Frankenfly
+==========
+
+Adapted from fruitflydev/flycoinrh, MIT, copyright (c) 2026 fruitflydev:
+https://github.com/fruitflydev/flycoinrh
+Reference files inspected on 2026-09-11:
+  flysim.py       blob e60dbe3d134c93fd673203fd47df5a94d5b9f939
+  flyeye.py       source for retina and descending-neuron readout
+  build_graph.py  blob a25d8aa423137867825b401432eaec2a8ff4b213
+
+Changes include a virtual cat body and arena, an observation-window integrator, source
+checksum validation, bounded input controls, display telemetry, checkpointing,
+and Docker/Hetzner deployment. See docs/MODEL.md for modeling assumptions.
+
+The FlyEM male CNS v1.0 connectome dataset is separately licensed CC BY 4.0.
+Copyright: HHMI Janelia FlyEM, the Cambridge Connectomics Group and Google Research.
+https://creativecommons.org/licenses/by/4.0/
+https://storage.googleapis.com/flyem-male-cns/
+Source files are not included in the code repository. Their exact URLs and
+checksums are recorded by frankenfly.prepare and in each data manifest.
+The processed connectivity matrix retains this attribution and data license.
+The code license does not relicense the scientific dataset.
+
+Original mascot bitmap generated with OpenAI image generation for this project.
+No affiliation with or endorsement by the researchers, fruitflydev, Pons, or
+Robinhood is implied. This application does not launch or trade tokens.

@@ -1,0 +1,61 @@
+name: frankenfly
+services:
+  prepare:
+    build: .
+    image: frankenfly:local
+    command: ["python", "-m", "frankenfly.prepare"]
+    volumes:
+      - connectome:/data
+    profiles: ["setup"]
+    mem_limit: 4g
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+  app:
+    build: .
+    image: frankenfly:local
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 45s
+    ports: ["127.0.0.1:8000:8000"]
+    environment:
+      FRANKENFLY_CONTROL_TOKEN: ${FRANKENFLY_CONTROL_TOKEN:?Run python3 scripts/make_env.py first}
+      FRANKENFLY_HZ: ${FRANKENFLY_HZ:-8}
+    volumes:
+      - connectome:/data:ro
+      - brain-state:/state
+    read_only: true
+    tmpfs: ["/tmp:size=32m"]
+    mem_limit: 2g
+    pids_limit: 64
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=5)"]
+      interval: 30s
+      timeout: 8s
+      retries: 3
+      start_period: 90s
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    profiles: ["public"]
+    ports: ["80:80", "443:443", "443:443/udp"]
+    environment:
+      FRANKENFLY_DOMAIN: ${FRANKENFLY_DOMAIN:-localhost}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      app: {condition: service_healthy}
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+volumes:
+  connectome:
+  brain-state:
+  caddy-data:
+  caddy-config:
