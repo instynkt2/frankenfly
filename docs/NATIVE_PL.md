@@ -94,9 +94,14 @@ rozpakowanie rzeczywistego archiwum GitHuba, składnię jednostek systemd 255,
 bootstrap pip w pustym venv bez ensurepip i ponowne zbudowanie pełnego modelu.
 Import osiągnął **1301,8 MiB szczytowego RSS** i odtworzył
 identyczny SHA-256 grafu. RSS jednego procesu nie jest całkowitym zużyciem
-pamięci cgroup. Limity, DynamicUser, instalacja pełnych zależności i uruchomienie
-usług wymagają potwierdzenia na docelowym hoście; lokalne środowisko nie ma
-działającego menedżera systemd.
+pamięci cgroup. Lokalne środowisko nie ma działającego menedżera systemd.
+
+11 września 2026 operator wykonał instalację na docelowym serwerze Hetznera.
+Przesłane logi potwierdzają zakończenie przygotowania modelu o 09:17:41 UTC,
+uruchomienie aplikacji na `127.0.0.1:18080` i udany test zdrowia o 09:17:45 UTC.
+Są to wyniki z konsoli operatora; asystent nie miał bezpośredniego dostępu SSH.
+Publiczny adres, HTTPS, interakcja w przeglądarce oraz wpływ na pozostałe
+obciążenia serwera wymagają jeszcze sprawdzenia.
 
 Mechanizmy: [środowiska venv](https://docs.python.org/3.12/library/venv.html),
 [limity systemd](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html).

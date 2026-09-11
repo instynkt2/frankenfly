@@ -43,8 +43,8 @@ capacity for a large public audience.
 - Docker Engine is not installed in the build environment, so the Docker
   image/Compose stack has not been executed here. Native Python and the real
   application runtime were tested.
-- No Hetzner server was connected or changed. HTTPS/DNS and server-specific
-  performance still need verification on the target host.
+- The native deployment on Hetzner started successfully, as recorded below.
+  Public HTTPS/DNS and server-specific performance still need verification.
 - Interactive browser/visual and WebMCP testing were not performed. The
   interface's HTML, local assets and JavaScript syntax were checked.
 
@@ -61,8 +61,26 @@ capacity for a large public audience.
 - Rebuilt the full graph from the verified source data: **1301.8 MiB peak RSS**,
   with the identical graph SHA-256 recorded above. Peak RSS is not a measured
   cgroup memory limit.
-- The environment has no running systemd manager, so actual DynamicUser,
-  cgroup enforcement and native service startup remain target-host checks.
+- The local build environment has no running systemd manager. Service startup
+  was subsequently confirmed on the target host through operator-provided logs.
+  Resource-limit enforcement has not been independently measured under load.
+
+## Target-host deployment — operator-provided evidence
+
+Console screenshots from 11 September 2026 confirm the native installation:
+
+- Preflight passed with **3071 MiB available RAM** and a free localhost port 18080.
+- The setup service completed successfully at **09:17:41 UTC**, after building
+  the graph with the identical SHA-256 recorded above.
+- systemd started the application on **127.0.0.1:18080**.
+- At **09:17:45 UTC**, the readiness probe printed
+  `Frankenfly health check passed`, followed by systemd's service-start confirmation.
+
+This confirms model preparation and application readiness on the host. The
+assistant did not have direct SSH access; these findings come from the
+operator's console screenshots. The app is still bound to localhost. A public
+URL, HTTPS, browser interaction and the impact on other workloads are not yet
+verified. No token or wallet has been launched.
 
 ## Source repository
 
