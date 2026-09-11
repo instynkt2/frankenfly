@@ -33,6 +33,15 @@ katalogu, konta lub usługi Frankenfly. W razie konfliktu kończy pracę.
 
 ## Uruchomienie
 
+Jeśli konsola przeglądarkowa przekręca dwukropki, podkreślenia lub znaki
+`&&`, użyj głównego pliku `install.py`. Ten krótki program pobiera przypięty
+instalator przez HTTPS, sprawdza jego SHA-256 i przekazuje mu argumenty.
+Nazwa `install.py` nie zawiera znaków wymagających klawisza Shift.
+Przy pobieraniu przez curl można użyć `--proto-default https` i adresu bez
+prefiksu `https://`. Pobranie i uruchomienie wykonuj jako dwa osobne polecenia,
+każde zatwierdzone Enterem. Nie zmieniaj ustawień systemu ani układu klawiatury
+na całym serwerze, żeby rozwiązać problem wklejania.
+
 Pobierz `scripts/install_native.py` z przejrzanego commita tego repozytorium.
 Nie wklejaj do skryptu żadnych haseł. Samo sprawdzenie warunków jest tylko do
 odczytu:
